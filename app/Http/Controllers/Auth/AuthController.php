@@ -9,24 +9,7 @@ use App\Http\Controllers\Controller;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:8'
-        ]);
-
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password)
-        ]);
-
-        return response()->json([
-            'token' => $user->createToken('api-token')->plainTextToken
-        ], 200);
-    }
+   
 
     public function login(Request $request)
     {
@@ -45,7 +28,9 @@ class AuthController extends Controller
         
 
         return response()->json([
-            'token' => $user->createToken('api-token')->plainTextToken
+            'token' => $user->createToken('api-token')->plainTextToken ,
+            'message' => "log in successfully" ,
+            'user' =>   $user                
         ]);
     }
 
